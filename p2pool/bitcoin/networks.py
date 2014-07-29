@@ -21,9 +21,9 @@ nets = dict(
         BLOCK_PERIOD=24, # s
         SYMBOL='VIA',
         CONF_FILE_FUNC=lambda: os.path.join(os.path.join(os.environ['APPDATA'], 'Viacoin') if platform.system() == 'Windows' else os.path.expanduser('~/Library/Application Support/Viacoin/') if platform.system() == 'Darwin' else os.path.expanduser('~/.viacoin'), 'viacoin.conf'),
-        BLOCK_EXPLORER_URL_PREFIX='http://viacoinexplorer.com/block/',
-        ADDRESS_EXPLORER_URL_PREFIX='http://viacoinexplorer.com/address/',
-        TX_EXPLORER_URL_PREFIX='http://viacoinexplorer.com/tx/',
+        BLOCK_EXPLORER_URL_PREFIX='http://explorer.viacoin.org/block/',
+        ADDRESS_EXPLORER_URL_PREFIX='http://explorer.viacoin.org/address/',
+        TX_EXPLORER_URL_PREFIX='http://explorer.viacoin.org/tx/',
         SANE_TARGET_RANGE=(2**256//1000000000 - 1, 2**256//1000 - 1),
         DUMB_SCRYPT_DIFF=2**16,
         DUST_THRESHOLD=0.03e8,
