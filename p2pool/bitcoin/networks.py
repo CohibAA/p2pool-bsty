@@ -6,42 +6,49 @@ from twisted.internet import defer
 from . import data
 from p2pool.util import math, pack, jsonrpc
 
+def get_subsidy(height):
+    halfreward = 10 * 100000000
+    halvings = height // 788000
+    if halvings >= 18:
+        return 0
+    return (halfreward >> halvings) + (halfreward >> ((height + 394000) // 788000))
+
 nets = dict(
-    viacoin=math.Object(
-        P2P_PREFIX='0f68c6cb'.decode('hex'),
-        P2P_PORT=5223,
-        ADDRESS_VERSION=71,
-        RPC_PORT=5222,
+    bitmark=math.Object(
+        P2P_PREFIX='f9beb4d9'.decode('hex'),
+        P2P_PORT=9265,
+        ADDRESS_VERSION=85,
+        RPC_PORT=9266,
         RPC_CHECK=defer.inlineCallbacks(lambda bitcoind: defer.returnValue(
-            'viacoinaddress' in (yield bitcoind.rpc_help()) and
+            'bitmarkaddress' in (yield bitcoind.rpc_help()) and
             not (yield bitcoind.rpc_getinfo())['testnet']
         )),
-        SUBSIDY_FUNC=lambda height: __import__('viacoin_subsidy').getBlockBaseValue(height+1),
+        SUBSIDY_FUNC=lambda height: get_subsidy(height+1),
         POW_FUNC=lambda data: pack.IntType(256).unpack(__import__('ltc_scrypt').getPoWHash(data)),
-        BLOCK_PERIOD=24, # s
-        SYMBOL='VIA',
-        CONF_FILE_FUNC=lambda: os.path.join(os.path.join(os.environ['APPDATA'], 'Viacoin') if platform.system() == 'Windows' else os.path.expanduser('~/Library/Application Support/Viacoin/') if platform.system() == 'Darwin' else os.path.expanduser('~/.viacoin'), 'viacoin.conf'),
-        BLOCK_EXPLORER_URL_PREFIX='http://explorer.viacoin.org/block/',
-        ADDRESS_EXPLORER_URL_PREFIX='http://explorer.viacoin.org/address/',
-        TX_EXPLORER_URL_PREFIX='http://explorer.viacoin.org/tx/',
+        BLOCK_PERIOD=120, # s
+        SYMBOL='BTM',
+        CONF_FILE_FUNC=lambda: os.path.join(os.path.join(os.environ['APPDATA'], 'Bitmark') if platform.system() == 'Windows' else os.path.expanduser('~/Library/Application Support/Bitmark/') if platform.system() == 'Darwin' else os.path.expanduser('~/.bitmark'), 'bitmark.conf'),
+        BLOCK_EXPLORER_URL_PREFIX='http://cryptexplorer.com/block/',
+        ADDRESS_EXPLORER_URL_PREFIX='http://cryptexplorer.com/address/',
+        TX_EXPLORER_URL_PREFIX='http://cryptexplorer.com/tx/',
         SANE_TARGET_RANGE=(2**256//1000000000 - 1, 2**256//1000 - 1),
         DUMB_SCRYPT_DIFF=2**16,
         DUST_THRESHOLD=0.03e8,
     ),
-    viacoin_testnet=math.Object(
-        P2P_PREFIX='a9c5ef92'.decode('hex'),
-        P2P_PORT=25223,
-        ADDRESS_VERSION=127,
-        RPC_PORT=25222,
+    bitmark_testnet=math.Object(
+        P2P_PREFIX='0b110907'.decode('hex'),
+        P2P_PORT=19265,
+        ADDRESS_VERSION=130,
+        RPC_PORT=19266,
         RPC_CHECK=defer.inlineCallbacks(lambda bitcoind: defer.returnValue(
-            'viacoinaddress' in (yield bitcoind.rpc_help()) and
+            'bitmarkaddress' in (yield bitcoind.rpc_help()) and
             (yield bitcoind.rpc_getinfo())['testnet']
         )),
-        SUBSIDY_FUNC=lambda height: __import__('viacoin_subsidy').getBlockBaseValue_testnet(height+1),
+        SUBSIDY_FUNC=lambda height: get_subsidy(height+1),
         POW_FUNC=lambda data: pack.IntType(256).unpack(__import__('ltc_scrypt').getPoWHash(data)),
-        BLOCK_PERIOD=24, # s
-        SYMBOL='tVIA',
-        CONF_FILE_FUNC=lambda: os.path.join(os.path.join(os.environ['APPDATA'], 'Viacoin') if platform.system() == 'Windows' else os.path.expanduser('~/Library/Application Support/Viacoin/') if platform.system() == 'Darwin' else os.path.expanduser('~/.viacoin'), 'viacoin.conf'),
+        BLOCK_PERIOD=120, # s
+        SYMBOL='tBTM',
+        CONF_FILE_FUNC=lambda: os.path.join(os.path.join(os.environ['APPDATA'], 'Bitmark') if platform.system() == 'Windows' else os.path.expanduser('~/Library/Application Support/Bitmark/') if platform.system() == 'Darwin' else os.path.expanduser('~/.bitmark'), 'bitmark.conf'),
         BLOCK_EXPLORER_URL_PREFIX='',
         ADDRESS_EXPLORER_URL_PREFIX='',
         TX_EXPLORER_URL_PREFIX='',
