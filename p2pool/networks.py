@@ -10,9 +10,9 @@ from p2pool.util import math
 nets = dict(
     globalboosty=math.Object(
         PARENT=networks.nets['globalboosty'],
-        SHARE_PERIOD=30, # seconds
-        CHAIN_LENGTH=24*60*60//30, # shares
-        REAL_CHAIN_LENGTH=24*60*60//30, # shares
+        SHARE_PERIOD=15, # seconds
+        CHAIN_LENGTH=24*60*60//15, # shares
+        REAL_CHAIN_LENGTH=24*60*60//15, # shares
         TARGET_LOOKBEHIND=60, # shares
         SPREAD=3, # blocks
         IDENTIFIER='cf90e29bc82c60e7'.decode('hex'),
