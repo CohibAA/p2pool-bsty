@@ -20,16 +20,14 @@ Windows:
 
 Running P2Pool:
 -------------------------
-To use P2Pool, you must be running your own local bitcoind. For standard
-configurations, using P2Pool should be as simple as:
+To use P2Pool, you must be running your own local globalboostyd wallet, although you can elect to have payments sent to any address. For standard configurations, using P2Pool should be as simple as:
 
-    python run_p2pool.py
+    python run_p2pool.py --net globalboosty
 
-Then run your miner program, connecting to 127.0.0.1 on port 9332 with any
-username and password.
+Then run your miner program, connecting to 127.0.0.1 on port 7225 with any username / password.
 
 If you are behind a NAT, you should enable TCP port forwarding on your
-router. Forward port 9333 to the host running P2Pool.
+router. Forward port 7226 to the host running P2Pool for BTSY.
 
 Run for additional options.
 
@@ -37,7 +35,11 @@ Run for additional options.
 
 Donations towards further development:
 -------------------------
-    1HNeqi3pJRNvXybNX4FKzZgYJsdTSqJTbk
+    YAcna8ys7wahtB45uqYEure9wCQLQcqHDo (BSTY)
+    1939BZFZnHEdKyHn2cYrg8kbUPz1UgkuqQ (BTC)
+    LcjmUck1PB2dZun9My9N2W8hwFpAfeEkfP (LTC)
+    DQfThymvPs1bgCjPvmkmpUYJtiLSFQBmok (DOGE)
+    1HNeqi3pJRNvXybNX4FKzZgYJsdTSqJTbk (BTC - ORIGINAL AUTHOR)
 
 Official wiki :
 -------------------------
