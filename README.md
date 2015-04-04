@@ -1,10 +1,10 @@
 Requirements:
 -------------------------
 Generic:
-* Bitcoin >=0.8.5
 * Python >=2.6
 * Twisted >=10.0.0
 * python-argparse (for Python =2.6)
+* BSTY >= 0.9.0.3
 
 Linux:
 * sudo apt-get install python-zope.interface python-twisted python-twisted-web
